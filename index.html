@@ -1,0 +1,257 @@
+<style>
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Satoshi',system-ui,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.page{background:#DFE5D7;color:#0D120B;min-height:100vh}
+[data-theme=dark] .page{background:#0D120B;color:#DFE5D7}
+nav{display:flex;align-items:center;gap:28px;padding:0 40px;height:52px;border-bottom:1px solid #A7ADA1;background:#DFE5D7;position:sticky;top:0;z-index:10}
+[data-theme=dark] nav{background:#0D120B;border-color:#42493F}
+.site-name{font-family:'Instrument Serif',Georgia,serif;font-size:17px;font-weight:400}
+.tab-btn{font-family:'Satoshi',sans-serif;font-size:13px;padding:3px 12px;border-radius:9999px;border:1.5px solid transparent;cursor:pointer;background:transparent;color:#5A6056}
+.tab-btn.active{border-color:#0D120B;font-weight:600;color:#0D120B}
+[data-theme=dark] .tab-btn.active{border-color:#DFE5D7;color:#DFE5D7}
+.theme-btn{margin-left:auto;font-family:'Satoshi',sans-serif;font-size:12px;padding:5px 12px;border-radius:9999px;border:1px solid #A7ADA1;background:transparent;cursor:pointer;color:#5A6056}
+main{max-width:820px;margin:0 auto;padding:48px 24px 80px}
+.hero{text-align:center;margin-bottom:40px}
+.status-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:22px;color:#fff}
+h1{font-family:'Instrument Serif',Georgia,serif;font-size:30px;font-weight:400;margin:0 0 6px}
+.updated{font-size:12px;color:#5A6056}
+.services-card{background:#EEF2E9;border:1px solid #A7ADA1;border-radius:12px;overflow:hidden}
+[data-theme=dark] .services-card{background:#171D15;border-color:#42493F}
+.services-header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #A7ADA1;font-weight:600;font-size:14px}
+[data-theme=dark] .services-header{border-color:#42493F}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:9999px;font-size:12px;font-weight:600}
+.badge.operational{background:rgba(26,122,74,.13);color:#1a7a4a}
+.badge.degraded{background:rgba(176,112,0,.13);color:#b07000}
+.badge.downtime{background:rgba(176,58,36,.13);color:#b03a24}
+.badge.maintenance{background:rgba(100,100,100,.12);color:#5A6056}
+.badge.not_monitored{background:rgba(100,100,100,.08);color:#8C9387}
+.service-row{padding:18px 20px;border-bottom:1px solid #A7ADA1}
+[data-theme=dark] .service-row{border-color:#42493F}
+.service-row:last-child{border-bottom:none}
+.service-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.service-name{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot.operational{background:#1a7a4a}
+.dot.degraded{background:#b07000}
+.dot.downtime{background:#b03a24}
+.dot.maintenance{background:#888}
+.dot.not_monitored{background:#C2C8BC}
+.service-meta{display:flex;align-items:center;gap:12px;font-size:13px;color:#5A6056}
+.uptime-bar{display:flex;gap:2px;margin:8px 0 4px}
+.day-bar{flex:1;height:28px;border-radius:3px;min-width:3px;cursor:default;transition:opacity .1s}
+.day-bar:hover{opacity:.7}
+.bar-labels{display:flex;justify-content:space-between;font-size:11px;color:#5A6056}
+.incidents-section h2{font-family:'Instrument Serif',Georgia,serif;font-size:26px;font-weight:400;margin:0 0 28px}
+.inc-group{margin-bottom:28px}
+.inc-date{font-size:13px;font-weight:600;color:#5A6056;margin-bottom:10px}
+.inc-card{background:#EEF2E9;border:1px solid #A7ADA1;border-radius:8px;padding:16px 18px;margin-bottom:10px}
+[data-theme=dark] .inc-card{background:#171D15;border-color:#42493F}
+.inc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.inc-title{font-weight:600;font-size:14px}
+.inc-updates{margin-top:8px;border-left:2px solid #A7ADA1;padding-left:14px;display:flex;flex-direction:column;gap:8px}
+[data-theme=dark] .inc-updates{border-color:#42493F}
+.inc-update{font-size:13px;color:#5A6056}
+.inc-update strong{font-size:12px;font-weight:700;color:#0D120B;text-transform:capitalize}
+[data-theme=dark] .inc-update strong{color:#DFE5D7}
+.inc-update time{font-size:11px;margin-left:6px;color:#8C9387}
+.inc-update p{margin:2px 0 0;line-height:1.5}
+.empty{padding:48px;text-align:center;color:#5A6056;font-size:14px}
+footer{text-align:center;padding:24px;border-top:1px solid #A7ADA1;font-size:12px;color:#5A6056}
+[data-theme=dark] footer{border-color:#42493F}
+.loading{padding:80px;text-align:center;color:#5A6056;font-size:14px}
+</style>
+
+<div class="page" id="page">
+<nav>
+  <span class="site-name">insidegubbio</span>
+  <button class="tab-btn active" onclick="setTab('status')" id="tab-status">Status</button>
+  <button class="tab-btn" onclick="setTab('incidents')" id="tab-incidents">Incidenti precedenti</button>
+  <button class="theme-btn" onclick="toggleTheme()">☀ Tema</button>
+</nav>
+
+<main>
+  <div id="status-view">
+    <div class="loading" id="loading">Caricamento...</div>
+    <div id="content" style="display:none">
+      <div class="hero">
+        <div class="status-icon" id="overall-icon">✓</div>
+        <h1 id="overall-title">Tutti i servizi sono online</h1>
+        <p class="updated" id="updated-at"></p>
+      </div>
+      <div class="services-card">
+        <div class="services-header">
+          <span>Stato corrente dei servizi</span>
+          <span class="badge operational" id="overall-badge">✓ Funzionante</span>
+        </div>
+        <div id="services-list"></div>
+      </div>
+    </div>
+  </div>
+  <div id="incidents-view" style="display:none">
+    <div class="incidents-section">
+      <h2>Incidenti precedenti</h2>
+      <div id="incidents-list"></div>
+    </div>
+  </div>
+</main>
+<footer>basato su <a href="https://betterstack.com" style="text-decoration:underline;color:inherit">BetterStack</a></footer>
+</div>
+
+<script>
+const API = 'https://api.status.insidegubbio.com/it/index.json';
+let currentTab = 'status';
+let isDark = false;
+
+function toggleTheme() {
+  isDark = !isDark;
+  document.getElementById('page').setAttribute('data-theme', isDark ? 'dark' : '');
+  document.querySelector('.theme-btn').textContent = isDark ? '☾ Tema' : '☀ Tema';
+}
+
+function setTab(tab) {
+  currentTab = tab;
+  document.getElementById('status-view').style.display = tab === 'status' ? 'block' : 'none';
+  document.getElementById('incidents-view').style.display = tab === 'incidents' ? 'block' : 'none';
+  document.getElementById('tab-status').className = 'tab-btn' + (tab === 'status' ? ' active' : '');
+  document.getElementById('tab-incidents').className = 'tab-btn' + (tab === 'incidents' ? ' active' : '');
+}
+
+const STATUS_COLOR = {operational:'#1a7a4a',downtime:'#b03a24',degraded:'#b07000',maintenance:'#888888',not_monitored:'#C2C8BC'};
+const STATUS_IT = {operational:'Funzionante',downtime:'Non funzionante',degraded:'Degradato',maintenance:'Manutenzione',not_monitored:'Non monitorato'};
+const REPORT_TYPE_IT = {incident:'Incidente',maintenance:'Manutenzione'};
+
+function barColor(s) {
+  return STATUS_COLOR[s] || '#C2C8BC';
+}
+
+function renderServices(resources) {
+  const list = document.getElementById('services-list');
+  const sorted = [...resources].sort((a,b) => a.attributes.position - b.attributes.position);
+  list.innerHTML = sorted.map(r => {
+    const attr = r.attributes;
+    const status = attr.status;
+    const pct = attr.availability != null ? (attr.availability * 100).toFixed(3) : '—';
+    const days = attr.status_history || [];
+    const last90 = days.slice(-90);
+    const bars = last90.map(d => {
+      const s = d.status === 'downtime' ? 'downtime' : d.status;
+      return `<div class="day-bar" title="${d.day} — ${STATUS_IT[s]||s}" style="background:${barColor(s)}"></div>`;
+    }).join('');
+    const explanation = attr.explanation ? `<span style="font-size:12px;color:#5A6056;font-style:italic">${attr.explanation}</span>` : '';
+    return `<div class="service-row">
+      <div class="service-top">
+        <div class="service-name"><span class="dot ${status}"></span>${attr.public_name}${explanation ? ' &nbsp;' + explanation : ''}</div>
+        <div class="service-meta">
+          <span>${pct}% attivo</span>
+          <span class="badge ${status}">${STATUS_IT[status]||status}</span>
+        </div>
+      </div>
+      <div class="uptime-bar">${bars}</div>
+      <div class="bar-labels"><span>90 giorni fa</span><span>Oggi</span></div>
+    </div>`;
+  }).join('');
+}
+
+function formatDate(iso) {
+  return new Date(iso).toLocaleDateString('it-IT', {year:'numeric',month:'long',day:'numeric'});
+}
+function formatDateTime(iso) {
+  return new Date(iso).toLocaleString('it-IT', {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+
+function renderIncidents(reports, updates) {
+  const updatesMap = {};
+  updates.forEach(u => updatesMap[u.id] = u);
+
+  const sorted = [...reports].sort((a,b) => new Date(b.attributes.starts_at) - new Date(a.attributes.starts_at));
+
+  const byDate = {};
+  sorted.forEach(r => {
+    const d = formatDate(r.attributes.starts_at);
+    if (!byDate[d]) byDate[d] = [];
+    byDate[d].push(r);
+  });
+
+  const list = document.getElementById('incidents-list');
+  if (sorted.length === 0) {
+    list.innerHTML = '<div class="empty">Nessun incidente registrato.</div>';
+    return;
+  }
+
+  list.innerHTML = Object.entries(byDate).map(([date, reps]) => {
+    const cards = reps.map(r => {
+      const attr = r.attributes;
+      const type = REPORT_TYPE_IT[attr.report_type] || attr.report_type;
+      const statusClass = attr.aggregate_state === 'resolved' ? 'operational' : 'downtime';
+      const statusLabel = attr.aggregate_state === 'resolved' ? 'Risolto' : 'Aperto';
+      const relUpdates = (r.relationships?.status_updates?.data || [])
+        .map(ref => updatesMap[ref.id]).filter(Boolean)
+        .sort((a,b) => new Date(b.attributes.published_at) - new Date(a.attributes.published_at));
+      const updatesHtml = relUpdates.map(u => {
+        const msg = u.attributes.message;
+        if (msg === 'Maintenance ended') return '';
+        return `<div class="inc-update"><strong>${type}</strong><time>${formatDateTime(u.attributes.published_at)}</time><p>${msg}</p></div>`;
+      }).filter(Boolean).join('');
+      return `<div class="inc-card">
+        <div class="inc-header">
+          <span class="inc-title">${attr.title}</span>
+          <span class="badge ${statusClass}">${statusLabel}</span>
+        </div>
+        ${updatesHtml ? `<div class="inc-updates">${updatesHtml}</div>` : ''}
+      </div>`;
+    }).join('');
+    return `<div class="inc-group"><div class="inc-date">${date}</div>${cards}</div>`;
+  }).join('');
+}
+
+async function load() {
+  try {
+    const res = await fetch(API);
+    const json = await res.json();
+    const pageAttr = json.data.attributes;
+    const included = json.included || [];
+
+    const resources = included.filter(i => i.type === 'status_page_resource');
+    const reports = included.filter(i => i.type === 'status_report');
+    const updates = included.filter(i => i.type === 'status_update');
+
+    const overall = pageAttr.aggregate_state || 'operational';
+    const icon = document.getElementById('overall-icon');
+    const title = document.getElementById('overall-title');
+    const badge = document.getElementById('overall-badge');
+
+    icon.style.background = STATUS_COLOR[overall] || '#1a7a4a';
+    if (overall === 'operational') {
+      icon.textContent = '✓';
+      title.textContent = 'Tutti i servizi sono online';
+      badge.textContent = '✓ Funzionante';
+      badge.className = 'badge operational';
+    } else if (overall === 'downtime') {
+      icon.textContent = '✕';
+      title.textContent = 'Interruzione del servizio in corso';
+      badge.textContent = '✕ Non funzionante';
+      badge.className = 'badge downtime';
+    } else {
+      icon.textContent = '⚠';
+      title.textContent = 'Alcuni servizi hanno problemi';
+      badge.textContent = '⚠ Degradato';
+      badge.className = 'badge degraded';
+    }
+
+    const upd = pageAttr.updated_at;
+    document.getElementById('updated-at').textContent = 'Aggiornato l\'ultima volta il ' + formatDateTime(upd);
+
+    renderServices(resources);
+    renderIncidents(reports, updates);
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  } catch(e) {
+    document.getElementById('loading').textContent = 'Errore nel caricamento dei dati. Riprova più tardi.';
+  }
+}
+
+load();
+</script>
